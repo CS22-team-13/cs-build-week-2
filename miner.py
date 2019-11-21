@@ -39,20 +39,6 @@ def valid_proof(last_hash, proof, difficulty):
 
     IE:  last_hash: ...AE9123456, new hash 123456888...
     """
-
-    # TODO: Your code here!
-
-    # previous_proof = f'{last_hash}{proof}'.encode()
-    # previous_proof = hashlib.sha256(previous_proof).hexdigest()
-    
-    # guess = f"{proof}".encode()
-    # guess_hash = hashlib.sha256(guess).hexdigest()
-
-    # first = guess_hash[:difficulty]
-    # last = previous_proof[-difficulty:]
-
-
-    # return  last == first
     guess = f'{last_hash}{proof}'.encode()
     guess_hash = hashlib.sha256(guess).hexdigest()
     return guess_hash[:difficulty] == "0" * difficulty

@@ -94,8 +94,8 @@ if __name__ == "__main__":
     e = "e"
     w = "w"
     
-    l = [n,n,n,n,e,e,e,n,e]
-    path.backtrack(l)
+    l = [w,w,s,s,s,e,n,w,w,w]
+    path.take_path(l)
 
     # path.dfs()
 

@@ -10,6 +10,15 @@ class Path:
         self.mapped = dict()
         self.saved_map = []
 
+    
+    def take_path(self, arr):
+        sleep(15)
+        for move in arr:
+            room = Room(self.player.post_move(move))
+            self.player.currentRoom = room
+            print(f"\n\n{self.player.currentRoom.room_id}: {self.player.currentRoom.name} - moves: {self.player.currentRoom.exits}\n{self.player.currentRoom.description}\nerror: {self.player.currentRoom.errors} \n{self.player.currentRoom.items}\ncooldown:{self.player.currentRoom.exits}")
+            sleep(self.player.currentRoom.cooldown)
+
 
     def backtrack(self, arr):
         backTrack = []
@@ -23,14 +32,10 @@ class Path:
             elif move == "w":
                 backTrack.append("e")
         backTrack.reverse()
-        print(backTrack)
-        arr.reverse()
-        print(f"\n\n{self.player.currentRoom.room_id}: {self.player.currentRoom.name} - {self.player.currentRoom.description} - {self.player.currentRoom.items}\n")
-        sleep(15)
         for move in backTrack:
             room = Room(self.player.post_move(move))
             self.player.currentRoom = room
-            print(f"\n\n{self.player.currentRoom.room_id}: {self.player.currentRoom.name} - {self.player.currentRoom.description} - {self.player.currentRoom.items}\n")
+            print(f"\n\n{self.player.currentRoom.room_id}: {self.player.currentRoom.name} - moves: {self.player.currentRoom.exits}\n{self.player.currentRoom.description}\nerror: {self.player.currentRoom.errors} \n{self.player.currentRoom.items}\ncooldown:{self.player.currentRoom.exits}")
             sleep(self.player.currentRoom.cooldown)
 
 
