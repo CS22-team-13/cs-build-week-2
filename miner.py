@@ -6,7 +6,7 @@ from keys import api_key
 from uuid import uuid4
 from time import sleep
 from timeit import default_timer as timer
-from json import loads
+from json import loads, dumps
 
 import random
 
@@ -24,10 +24,9 @@ def proof_of_work(last_proof, difficulty):
     start = timer()
 
     print("Searching for next proof")
+    block_string = json.dumps(last_proof, sort_keys=True)
     proof = 0
-    #  TODO: Your code here
-
-    while valid_proof(last_proof, proof, difficulty) is False:
+    while valid_proof(block_string, proof, difficulty) is False:
         proof += 1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start) + "\n")
@@ -43,15 +42,20 @@ def valid_proof(last_hash, proof, difficulty):
 
     # TODO: Your code here!
 
-    previous_proof = f'{last_hash}'.encode()
-    previous_proof = hashlib.sha256(previous_proof).hexdigest()
+    # previous_proof = f'{last_hash}{proof}'.encode()
+    # previous_proof = hashlib.sha256(previous_proof).hexdigest()
     
-    guess = f"{proof}".encode()
-    guess_hash = hashlib.sha256(guess).hexdigest()
+    # guess = f"{proof}".encode()
+    # guess_hash = hashlib.sha256(guess).hexdigest()
 
-    first = guess_hash[:difficulty]
-    last = previous_proof[-difficulty:]
-    return  last == first
+    # first = guess_hash[:difficulty]
+    # last = previous_proof[-difficulty:]
+
+
+    # return  last == first
+    guess = f'{last_hash}{proof}'.encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    return guess_hash[:difficulty] == "0" * difficulty
 
 def last_proof():
     # curl -X GET -H 'Authorization: Token 15d04b7d7f437a151894f4e9eea4029eff396d4d' https://lambda-treasure-hunt.herokuapp.com/api/bc/last_proof/
